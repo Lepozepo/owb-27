@@ -8,7 +8,7 @@ module.exports = {
           rootPathSuffix: 'src',
         },
       ],
-      // '@babel/plugin-proposal-export-default-from',
+      '@babel/plugin-proposal-export-default-from',
     ],
   },
 };
