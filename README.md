@@ -3,6 +3,10 @@
 ## Prototype
 You can find the very rough prototype [here](https://www.figma.com/file/U3yDHQi6lT0Fzz5x2r1O83/Untitled?node-id=3%3A279)
 
+## External Dependencies
+To run the project for development you need to have these external dependencies installed in your machine:
+  - [Flow CLI](https://github.com/onflow/flow/blob/master/docs/cli.md#installation)
+
 ## Available Scripts
 
 In the project directory, you can run:
