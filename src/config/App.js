@@ -1,7 +1,13 @@
 import React from 'react';
+import { ThemeProvider } from 'theme-ui';
+import theme from './theme';
+
+import Hello from '~/components/Hello';
 
 export default function App() {
   return (
-    <p>Hello World</p>
+    <ThemeProvider theme={theme}>
+      <Hello />
+    </ThemeProvider>
   );
 }
