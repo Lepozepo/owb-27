@@ -1,6 +1,17 @@
 import React from 'react';
-import { Text } from 'theme-ui'
+import { Button, Container, Heading } from 'theme-ui'
+import { useWallet } from '~/config/wallet';
 
 export default function Login() {
-  return <Text>Login</Text>;
+  const [fcl, currentUser] = useWallet();
+  console.log(currentUser);
+
+  return (
+    <Container>
+      <Heading>Login</Heading>
+      <Button onClick={() => fcl.authenticate()}>
+        Log In
+      </Button>
+    </Container>
+  );
 }
