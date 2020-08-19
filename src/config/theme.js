@@ -1,15 +1,14 @@
 export default {
-  space: [
-    0,
-    4,
-    8,
-    16,
-    32,
-    64,
-    128,
-    256,
-    512
-  ],
+  colors: {
+    text: 'hsl(10, 20%, 20%)',
+    background: 'hsl(10, 10%, 98%)',
+    primary: 'hsl(10, 80%, 50%)',
+    secondary: 'hsl(10, 60%, 50%)',
+    highlight: 'hsl(10, 40%, 90%)',
+    purple: 'hsl(250, 60%, 30%)',
+    muted: 'hsl(10, 20%, 94%)',
+    gray: 'hsl(10, 20%, 50%)'
+  },
   fonts: {
     body: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
     heading: 'inherit',
@@ -24,23 +23,41 @@ export default {
     32,
     48,
     64,
-    96
+    72
   ],
   fontWeights: {
     body: 400,
     heading: 700,
-    bold: 700
+    display: 900
   },
   lineHeights: {
     body: 1.5,
-    heading: 1.125
+    heading: 1.25
   },
-  colors: {
-    text: '#000',
-    background: '#fff',
-    primary: '#07c',
-    secondary: '#30c',
-    muted: '#f6f6f6'
+  textStyles: {
+    heading: {
+      fontFamily: 'heading',
+      fontWeight: 'heading',
+      lineHeight: 'heading'
+    },
+    display: {
+      variant: 'textStyles.heading',
+      fontSize: [
+        5,
+        6
+      ],
+      fontWeight: 'display',
+      letterSpacing: '-0.03em',
+      mt: 3
+    }
+  },
+  sizes: {
+    container: 1024,
+  },
+  layout: {
+    container: {
+      p: 1,
+    },
   },
   styles: {
     root: {
@@ -49,82 +66,102 @@ export default {
       fontWeight: 'body'
     },
     h1: {
-      color: 'text',
-      fontFamily: 'heading',
-      lineHeight: 'heading',
-      fontWeight: 'heading',
-      fontSize: 5
+      variant: 'textStyles.display'
     },
     h2: {
-      color: 'text',
-      fontFamily: 'heading',
-      lineHeight: 'heading',
-      fontWeight: 'heading',
-      fontSize: 4
+      variant: 'textStyles.heading',
+      fontSize: 5
     },
     h3: {
-      color: 'text',
-      fontFamily: 'heading',
-      lineHeight: 'heading',
-      fontWeight: 'heading',
-      fontSize: 3
+      variant: 'textStyles.heading',
+      fontSize: 4
     },
     h4: {
-      color: 'text',
-      fontFamily: 'heading',
-      lineHeight: 'heading',
-      fontWeight: 'heading',
-      fontSize: 2
+      variant: 'textStyles.heading',
+      fontSize: 3
     },
     h5: {
-      color: 'text',
-      fontFamily: 'heading',
-      lineHeight: 'heading',
-      fontWeight: 'heading',
-      fontSize: 1
+      variant: 'textStyles.heading',
+      fontSize: 2
     },
     h6: {
-      color: 'text',
-      fontFamily: 'heading',
-      lineHeight: 'heading',
-      fontWeight: 'heading',
-      fontSize: 0
-    },
-    p: {
-      color: 'text',
-      fontFamily: 'body',
-      fontWeight: 'body',
-      lineHeight: 'body'
+      variant: 'textStyles.heading',
+      fontSize: 1
     },
     a: {
-      color: 'primary'
+      color: 'primary',
+      '&:hover': {
+        color: 'secondary'
+      }
     },
     pre: {
+      variant: 'prism',
       fontFamily: 'monospace',
-      overflowX: 'auto',
+      fontSize: 1,
+      p: 3,
+      color: 'text',
+      bg: 'muted',
+      overflow: 'auto',
       code: {
         color: 'inherit'
       }
     },
     code: {
       fontFamily: 'monospace',
-      fontSize: 'inherit'
+      color: 'secondary',
+      fontSize: 1
+    },
+    inlineCode: {
+      fontFamily: 'monospace',
+      color: 'secondary',
+      bg: 'muted'
     },
     table: {
       width: '100%',
+      my: 4,
       borderCollapse: 'separate',
-      borderSpacing: 0
+      borderSpacing: 0,
+      'th,td': {
+        textAlign: 'left',
+        py: '4px',
+        pr: '4px',
+        pl: 0,
+        borderColor: 'muted',
+        borderBottomStyle: 'solid'
+      }
     },
     th: {
-      textAlign: 'left',
-      borderBottomStyle: 'solid'
+      verticalAlign: 'bottom',
+      borderBottomWidth: '2px'
     },
     td: {
-      textAlign: 'left',
-      borderBottomStyle: 'solid'
+      verticalAlign: 'top',
+      borderBottomWidth: '1px'
+    },
+    hr: {
+      border: 0,
+      borderBottom: '1px solid',
+      borderColor: 'muted'
     },
     img: {
       maxWidth: '100%'
+    }
+  },
+  prism: {
+    '.comment,.prolog,.doctype,.cdata,.punctuation,.operator,.entity,.url': {
+      color: 'gray'
+    },
+    '.comment': {
+      fontStyle: 'italic'
+    },
+    '.property,.tag,.boolean,.number,.constant,.symbol,.deleted,.function,.class-name,.regex,.important,.variable': {
+      color: 'purple'
+    },
+    '.atrule,.attr-value,.keyword': {
+      color: 'primary'
+    },
+    '.selector,.attr-name,.string,.char,.builtin,.inserted': {
+      color: 'secondary'
     }
   }
 }

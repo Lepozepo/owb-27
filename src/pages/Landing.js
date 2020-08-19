@@ -1,6 +1,19 @@
-import React from 'react';
-import { Text } from 'theme-ui'
+/** @jsx jsx */
+import { jsx, Flex, Heading } from 'theme-ui';
+import Layout from '~/components/Layout';
 
 export default function Landing() {
-  return <Text>Landing</Text>;
+  return (
+    <Layout>
+      <Flex
+        sx={{
+          height: '20vh',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Heading>Certified</Heading>
+      </Flex>
+    </Layout>
+  );
 }
