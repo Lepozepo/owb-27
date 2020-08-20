@@ -1,7 +1,7 @@
 # Team 27
 
 ## Prototype
-You can find the very rough prototype [here](https://www.figma.com/file/U3yDHQi6lT0Fzz5x2r1O83/Untitled?node-id=3%3A279)
+You can find the very rough prototype [here](https://www.figma.com/file/T8S9uQVoa1aZVQ6me2VNZs/3-interfaces?node-id=0%3A1)
 
 ## External Dependencies
 To run the project for development you need to have these external dependencies installed in your machine:
