@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, Flex, Heading } from 'theme-ui';
 import Layout from '~/components/Layout';
+import RecentCertifications from '~/components/RecentCertifications';
 
 export default function Landing() {
   return (
@@ -14,6 +15,7 @@ export default function Landing() {
       >
         <Heading>Certified</Heading>
       </Flex>
+      <RecentCertifications />
     </Layout>
   );
 }

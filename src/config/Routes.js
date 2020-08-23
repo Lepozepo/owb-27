@@ -10,7 +10,8 @@ export default function Routes() {
   return (
     <Router>
       <Route exact path="/" component={pages.Landing} />
-      <Route exact path="/profile" component={pages.Profile} />
+      <Route exact path="/users/:userId/certificates" component={pages.Certificates} />
+      <Route exact path="/users/:userId/certificates/:certificateId" component={pages.Certificate} />
     </Router>
   );
 }
