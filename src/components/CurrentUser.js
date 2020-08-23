@@ -10,7 +10,7 @@ export default function CurrentUser() {
   const handleClick = async () => {
     if (!currentUser?.loggedIn) {
       const cu = await fcl.authenticate();
-      history.push(`/users/${cu.addr}/certificates`);
+      if (cu.loggedIn) history.push(`/users/${cu.addr}/certificates`);
       return;
     }
     const willLogout = window.confirm('Log out?');
