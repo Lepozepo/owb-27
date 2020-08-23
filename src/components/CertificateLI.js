@@ -1,7 +1,13 @@
 /** @jsx jsx */
 import { jsx, Text, Heading, Flex, Box, Image, Avatar } from 'theme-ui';
+import { useHistory } from 'react-router-dom';
 
-export default function CertificateLI({ certificate, onClick } = {}) {
+export default function CertificateLI(props = {}) {
+  const history = useHistory();
+  const {
+    certificate,
+    onClick,
+  } = props;
   if (!certificate) return null;
 
   return (
@@ -9,7 +15,10 @@ export default function CertificateLI({ certificate, onClick } = {}) {
       sx={{
         my: 2,
       }}
-      onClick={onClick}
+      onClick={() => {
+        if (onClick) return onClick(certificate);
+        history.push(`/users/${certificate.ownedBy[0].id}/certificates/${certificate.id}`);
+      }}
     >
       <Box
         sx={{
