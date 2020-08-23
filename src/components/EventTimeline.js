@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, Flex, Box, Text } from 'theme-ui';
 import { IoIosAddCircle, IoIosSwap } from 'react-icons/io';
+import { useThemeUI } from 'theme-ui'
 import certificates from '~/config/tmpCerts';
 
 function description(evt) {
@@ -19,33 +20,57 @@ function description(evt) {
 
 export default function EventTimeline(props = {}) {
   const { certificateId } = props;
+  const { theme } = useThemeUI();
   const certificate = certificates.find((c) => c.id === certificateId);
-  return certificate.events.map((evt) => (
-    <Box
+  return (
+    <Flex
       sx={{
-        position: 'relative',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <Box sx={{
-        borderLeft: '2px solid red',
-        position: 'absolute',
-        height: 'calc(100% - 20px)',
-        top: 20,
-        left: 9,
-      }} />
-      <Flex
+      <Box
         sx={{
-          pb: 20,
+          transform: 'translateX(50%)',
         }}
       >
-        {evt.change === 'CREATED' && (
-          <IoIosAddCircle size="20px" />        
-        )}
-        {evt.change === 'TRANSFERRED' && (
-          <IoIosSwap size="20px" />
-        )}
-        <Text>{description(evt)}</Text>
-      </Flex>
-    </Box>
-  ));
+        {certificate.events.reverse().map((evt, idx) => (
+          <Box
+            sx={{
+              position: 'relative',
+            }}
+          >
+            {idx !== certificate.events.length - 1 && (
+              <Box sx={{
+                borderLeft: `2px solid ${theme.colors.text}`,
+                position: 'absolute',
+                height: 'calc(100% - 20px)',
+                top: 20,
+                left: 9,
+              }} />
+            )}
+            <Flex
+              sx={{
+                pb: 20,
+              }}
+            >
+              {evt.change === 'CREATED' && (
+                <IoIosAddCircle size="20px" />        
+              )}
+              {evt.change === 'TRANSFERRED' && (
+                <IoIosSwap size="20px" />
+              )}
+              <Text
+                sx={{
+                  px: 2,
+                }}
+              >
+                {description(evt)}
+              </Text>
+            </Flex>
+          </Box>
+        ))}
+      </Box>
+    </Flex>
+  );
 }

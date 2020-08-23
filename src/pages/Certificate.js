@@ -31,6 +31,7 @@ export default function Certificate() {
         <Text>{certificate.description}</Text>
       </Box>
 
+      <Box sx={{ my: 4 }} />
       <EventTimeline certificateId={certificateId} />
     </Layout>
   );
