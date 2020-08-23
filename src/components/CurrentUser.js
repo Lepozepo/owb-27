@@ -1,13 +1,16 @@
 /** @jsx jsx */
 import { jsx, IconButton, Container, Text, Flex, Avatar } from 'theme-ui'
-import { IoIosContact } from "react-icons/io";
+import { IoIosContact } from 'react-icons/io';
+import { useHistory } from 'react-router-dom';
 import { useWallet } from '~/config/wallet';
 
 export default function CurrentUser() {
   const [fcl, currentUser] = useWallet();
-  const handleClick = () => {
+  const history = useHistory();
+  const handleClick = async () => {
     if (!currentUser?.loggedIn) {
-      fcl.authenticate();
+      const cu = await fcl.authenticate();
+      history.push(`/users/${cu.addr}/certificates`);
       return;
     }
     const willLogout = window.confirm('Log out?');
