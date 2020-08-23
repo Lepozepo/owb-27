@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { jsx, Text, Flex, Box, Image } from 'theme-ui';
+import { jsx, Text, Heading, Flex, Box, Image, Avatar } from 'theme-ui';
 
-export default function CertificateLI({ certificate } = {}) {
+export default function CertificateLI({ certificate, onClick } = {}) {
   if (!certificate) return null;
 
   return (
@@ -9,19 +9,41 @@ export default function CertificateLI({ certificate } = {}) {
       sx={{
         my: 2,
       }}
-      key={certificate.id}
+      onClick={onClick}
     >
-      <Image
+      <Box
         sx={{
-          width: 150,
-          mr: 2,
+          position: 'relative',
+          marginBottom: 20,
         }}
-        src={certificate.img}
-      />
-      <Box>
-        <Text pr="2">{certificate.title}</Text>
-        <Text pr="2">{certificate.description}</Text>
-        <Text pr="2">{certificate.grantedAt}</Text>
+      >
+        <Image
+          sx={{
+            width: 150,
+            mr: 2,
+          }}
+          src={certificate.img}
+        />
+        <Avatar
+          sx={{
+            size: 60,
+            right: -20,
+            bottom: -20,
+            position: 'absolute',
+            backgroundColor: 'white',
+          }}
+          src={certificate.ownedBy[0].avatar}
+        />
+      </Box>
+      <Box
+        sx={{
+          ml: 20,
+          pl: 2,
+        }}
+      >
+        <Heading>{certificate.title}</Heading>
+        <Text>{certificate.description}</Text>
+        <Text>{certificate.grantedAt}</Text>
       </Box>
     </Flex>
   );
