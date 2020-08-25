@@ -1,8 +1,8 @@
 
 
-// CertificateNFT.cdc
+// Vedas.cdc
 
-pub contract CertificateNFT {
+pub contract Vedas {
 
     // id has to be maintained in a central location because that is the co-ordination point
     // here the minter cannot be the central point of co-ordination to assign ids because there will be multiple minters
@@ -20,7 +20,39 @@ pub contract CertificateNFT {
 
     }
 
-    
+// dictionary limit
+//00,000
+
+/*  status has to be outside in the main contract.
+{1234: inactive,
+veve
+fv
+ve
+ve
+fvefv
+}
+
+// another dictionary
+{
+    0x439358: @JohnDoe   <------------- insert 
+    0x9834u04: @JohnDoe1
+}
+
+//
+@JohnDoe
+john@mit.edu ---> adminemai@mit.edu 
+
+admin logs onto app ---> NFT ---> @JohnDoe
+*/
+// permission to MIT admin -->  modify the NFT 
+// permission to return it back to to MIT account - explore
+
+
+// crystal box to the guy. pu the certs in there.
+// if crystal breaks, cert will be sent back. Resource owning a resource.
+// admin has right to break the box.
+// user can also break the box.
+
 
     // define the certificate resource type
     pub resource Certificate {
