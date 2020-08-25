@@ -6,22 +6,29 @@ pub contract Vedas {
 
     // id has to be maintained in a central location because that is the co-ordination point
     // here the minter cannot be the central point of co-ordination to assign ids because there will be multiple minters
-    pub var maxPossibleCertID: UInt64
+    pub var maxCertID: UInt64
+    pub var maxMinterID: UInt64
 
     init(){
-        self.maxPossibleCertID = UInt64(0)
+        self.maxCertID = UInt64(0)
+        self.maxMinterID = UInt64(0)
     }
 
     // supplying batches of 1000 to the minters.
-    pub fun supplyBatch(): [UInt64] {
-        var temp = self.maxPossibleCertID
-        self.maxPossibleCertID = self.maxPossibleCertID + UInt64(1000)
-        return [temp, UInt64(1000)]
+    pub fun getCertID(): UInt64 {
+        var temp = self.maxCertID
+        self.maxCertID = self.maxCertID + UInt64(1)
+        return temp
+    }
 
+    pub fun getMinterID(): UInt64 {
+        var temp = self.maxMinterID
+        self.maxMinterID = self.maxMinterID + UInt64(1)
+        return temp
     }
 
 // dictionary limit
-//00,000
+//100,000
 
 /*  status has to be outside in the main contract.
 {1234: inactive,
@@ -91,6 +98,7 @@ admin logs onto app ---> NFT ---> @JohnDoe
     pub resource interface CertificateReceiver{
 
         pub fun receive(cert: @Certificate)
+
     }
     
 
@@ -112,7 +120,7 @@ admin logs onto app ---> NFT ---> @JohnDoe
             destroy oldCert
         }
 
-        // need ot define destroy function becasue there are nested resources.
+        // need to define destroy function becasue there are nested resources.
         destroy(){
             destroy self.ownedCertificates 
         }
@@ -124,23 +132,17 @@ admin logs onto app ---> NFT ---> @JohnDoe
     // Our company(admin account) creates  the minters to official accounts (Certificate Authorities) when they create their accounts
     pub resource CertificateMinter {
 
-        pub var mintingBatchLeft: UInt64
-        pub var mintingStartCount: UInt64
+        pub let minterID: UInt64
 
-        init(mintingBatchLeft: UInt64, mintingStartCount: UInt64){
-            self.mintingBatchLeft = mintingBatchLeft
-            self.mintingStartCount = mintingStartCount
+        init(){
+            self.minterID = Vedas.getMinterID()
         }
 
         // fun used in txns by the Certificate Authority to issueCert to user.
         // How to make the mapping from @User to recipient Vault reference 
         pub fun issueCert(recipient: &AnyResource{CertificateReceiver}, title: String, metadata: String, issuerID: UInt64, status: String ){
-            recipient.receive(cert:  <-create Certificate(certID: self.mintingStartCount, title: title, metadata: metadata, issuerID: issuerID, status: status))
-            self.mintingStartCount = self.mintingStartCount + UInt64(1)
-            self.mintingBatchLeft = self.mintingBatchLeft - UInt64(1)
-            if(self.mintingBatchLeft == UInt64(0)){
-                self.getNextBatch();
-            }
+            recipient.receive(cert:  <-create Certificate(certID: Vedas.getCertID(), title: title, metadata: metadata, issuerID: issuerID, status: status))
+            
         }
 
         // fun used in txns by the Certificate Authority to change status to  
@@ -148,11 +150,6 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
         }
 
-        pub fun getNextBatch(){
-            var temp = CertificateNFT.supplyBatch()
-            self.mintingStartCount = temp[0]
-            self.mintingBatchLeft = temp[1]
-        }
 
     }
 
