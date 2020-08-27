@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { jsx, Flex, Box, Text } from 'theme-ui';
+import { jsx, Flex, Box, Text, useThemeUI } from 'theme-ui';
 import { IoIosAddCircle, IoIosSwap } from 'react-icons/io';
-import { useThemeUI } from 'theme-ui'
 import certificates from '~/config/tmpCerts';
 
 function description(evt) {
@@ -34,7 +33,7 @@ export default function EventTimeline(props = {}) {
           transform: 'translateX(50%)',
         }}
       >
-        {certificate.events.reverse().map((evt, idx) => (
+        {certificate.events.slice().reverse().map((evt, idx) => (
           <Box
             sx={{
               position: 'relative',

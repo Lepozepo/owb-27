@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, Flex, Box, Text, Heading, Image } from 'theme-ui';
-import { useParams } from 'react-router-dom';
+import { jsx, Flex, Box, Text, Heading, Image, Button } from 'theme-ui';
+import { useParams, Link } from 'react-router-dom';
 import Layout from '~/components/Layout';
 import EventTimeline from '~/components/EventTimeline';
 import certificates from '~/config/tmpCerts';
@@ -33,6 +33,18 @@ export default function Certificate() {
 
       <Box sx={{ my: 4 }} />
       <EventTimeline certificateId={certificateId} />
+      <Flex
+        sx={{
+          justifyContent: 'flex-end',
+        }}
+      >
+        <Button
+          as={Link}
+          to={`./${certificateId}/transfer`}
+        >
+          Transfer
+        </Button>
+      </Flex>
     </Layout>
   );
 }

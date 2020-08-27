@@ -17,7 +17,7 @@ export default function CertificateLI(props = {}) {
       }}
       onClick={() => {
         if (onClick) return onClick(certificate);
-        history.push(`/users/${certificate.ownedBy[0].id}/certificates/${certificate.id}`);
+        history.push(`/certificates/${certificate.id}`);
       }}
     >
       <Box
