@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "date-fns": "^2.15.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
@@ -19,7 +20,8 @@
     "start": "SKIP_PREFLIGHT_CHECK=true NODE_ENV='development' craco start",
     "build": "craco build",
     "test": "CI=true craco test --passWithNoTests",
-    "wallet": "PK=398ffa83e34ac67bf61fa8ab907eb05393f49404de953a20da525db1aa355c6f fcl-wallet"
+    "wallet": "PK=398ffa83e34ac67bf61fa8ab907eb05393f49404de953a20da525db1aa355c6f fcl-wallet",
+    "flow:start": "flow emulator start"
   },
   "eslintConfig": {
     "extends": "react-app"
