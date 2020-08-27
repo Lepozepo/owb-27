@@ -62,22 +62,23 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
 
     // define the certificate resource type
+    // all type declarations must be public
     pub resource Certificate {
 
         // the certificate has to have a unique id across the platform.
-        pub let certID: UInt64
+        access(contract) let certID: UInt64
 
         // certificate has title
-        pub let title: String
+        access(self) let title: String
 
         // certificate has metadata
-        pub var metadata: String
+        access(self) var metadata: String
 
         // certificate has Issuer id's account ID
-        pub let issuerID: UInt64
+        access(self) let issuerID: UInt64
 
         // certificate status
-        pub var status: String
+        access(self) var status: String
 
 
         //Initialise all fields during the creation of the resource.
@@ -97,7 +98,7 @@ admin logs onto app ---> NFT ---> @JohnDoe
     // this helps create receiver links, so only intended receivers aka "subscribers" can receive the certificates sent by the minter authority
     pub resource interface CertificateReceiver {
 
-        pub fun receive(cert: @Certificate)
+        pub fun deposit(cert: @Certificate)
 
     }
     
@@ -108,14 +109,13 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
         // this vault should contain a collection of certificates
         // we store a mapping of certID and the certificate resource itself
-        pub var ownedCertificates: @{UInt64: Certificate}
+        access(self) var ownedCertificates: @{UInt64: Certificate}
 
         init() {
             self.ownedCertificates <- {}
-            // may have to create the storage here.
         }
 
-        pub fun receive(cert: @Certificate) {
+        pub fun deposit(cert: @Certificate) {
             let oldCert <- self.ownedCertificates[cert.certID] <- cert
             destroy oldCert
         }
@@ -127,6 +127,10 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
     }
 
+    pub fun createEmptyCertificateVault(): @CertificateVault {
+        return <- create CertificateVault()
+    }
+
     // MinterReceiver interface
     // This existes so that only the MinterReceiver can receive the Minters
     // Also exposes only the interface functions publicly
@@ -136,6 +140,7 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
     }
 
+    // all type declarations must be public
     pub resource MinterVault: MinterReceiver {
 
         access(self) var certMinter : @CertificateMinter?
@@ -178,7 +183,7 @@ admin logs onto app ---> NFT ---> @JohnDoe
         // fun used in txns by the Certificate Authority to issueCert to user.
         // How to make the mapping from @User to recipient Vault reference 
         pub fun issueCert(recipient: &AnyResource{CertificateReceiver}, title: String, metadata: String, issuerID: UInt64, status: String ){
-            recipient.receive(cert:  <-create Certificate(certID: Vedas.getCertID(), title: title, metadata: metadata, issuerID: issuerID, status: status))
+            recipient.deposit(cert:  <-create Certificate(certID: Vedas.getCertID(), title: title, metadata: metadata, issuerID: issuerID, status: status))
             
         }
 

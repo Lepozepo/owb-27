@@ -10,7 +10,7 @@ transaction {
         // create an empty MinterVault and store it in storage
         account.save<@Vedas.MinterVault>( <- Vedas.createEmptyMinterVault(), to: /storage/MinterVault)
 
-        log("Empty vault created")
+        log("Empty Minter Vault created")
 
         // create the public capability to provide a referance to anyone trying to send the MinterVault
         account.link<&Vedas.MinterVault>(/public/MinterVault, target: /storage/MinterVault)

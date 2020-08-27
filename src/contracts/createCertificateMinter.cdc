@@ -16,7 +16,7 @@ transaction {
 
     execute{
 
-        let receiverAccount = getAccount(#acc2)
+        let receiverAccount = getAccount(0x01cf0e2f2f715450)
 
         
 
