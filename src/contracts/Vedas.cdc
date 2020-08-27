@@ -95,7 +95,7 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
     // define the Certificate receiver interface
     // this helps create receiver links, so only intended receivers aka "subscribers" can receive the certificates sent by the minter authority
-    pub resource interface CertificateReceiver{
+    pub resource interface CertificateReceiver {
 
         pub fun receive(cert: @Certificate)
 
@@ -110,12 +110,12 @@ admin logs onto app ---> NFT ---> @JohnDoe
         // we store a mapping of certID and the certificate resource itself
         pub var ownedCertificates: @{UInt64: Certificate}
 
-        init(){
+        init() {
             self.ownedCertificates <- {}
             // may have to create the storage here.
         }
 
-        pub fun receive(cert: @Certificate){
+        pub fun receive(cert: @Certificate) {
             let oldCert <- self.ownedCertificates[cert.certID] <- cert
             destroy oldCert
         }
@@ -127,6 +127,41 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
     }
 
+    // MinterReceiver interface
+    // This existes so that only the MinterReceiver can receive the Minters
+    // Also exposes only the interface functions publicly
+    pub resource interface MinterReceiver{
+
+        pub fun deposit(token: @CertificateMinter)
+
+    }
+
+    pub resource MinterVault: MinterReceiver {
+
+        access(self) var certMinter : @CertificateMinter?
+        
+        init(){
+            self.certMinter <- nil
+        }
+
+        destroy(){
+            destroy self.certMinter
+        }
+        
+        pub fun deposit(token: @CertificateMinter){
+            // need unwrap operation here
+            var oldCertMinter <- self.certMinter <- token
+            destroy oldCertMinter
+        }
+
+    }
+
+    pub fun createEmptyMinterVault(): @MinterVault {
+            return  <- create MinterVault()
+    }
+
+
+
 
     // Orgs should be able to get a minter and mint certs.
     // Our company(admin account) creates  the minters to official accounts (Certificate Authorities) when they create their accounts
@@ -137,6 +172,8 @@ admin logs onto app ---> NFT ---> @JohnDoe
         init(){
             self.minterID = Vedas.getMinterID()
         }
+
+       
 
         // fun used in txns by the Certificate Authority to issueCert to user.
         // How to make the mapping from @User to recipient Vault reference 
@@ -156,12 +193,6 @@ admin logs onto app ---> NFT ---> @JohnDoe
     
 
 
-
-
-
-
-
-
 }
 
 
@@ -169,3 +200,4 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
 
 
+ 
