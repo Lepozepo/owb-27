@@ -1,5 +1,5 @@
-// createOrgAccount.cdc
-// This script should be executed by the Org after the org has a Flow account
+// createVedasOrgAccount.cdc
+// This script should be executed by the Org after they have a Flow account
 
 import Vedas from 0x01cf0e2f2f715450
 
