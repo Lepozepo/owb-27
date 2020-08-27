@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, IconButton, Container, Text, Flex, Avatar } from 'theme-ui'
+import { jsx, IconButton, Text, Flex, Avatar } from 'theme-ui';
 import { IoIosContact } from 'react-icons/io';
 import { useHistory } from 'react-router-dom';
 import { useWallet } from '~/config/wallet';
@@ -18,35 +18,27 @@ export default function CurrentUser() {
   };
 
   return (
-    <Container>
-      <Flex
-        sx={{
-          justifyContent: 'flex-end',
-        }}
-      >
-        <Flex
-          sx={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          onClick={handleClick}
+    <Flex
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+      onClick={handleClick}
+    >
+      <Text pr="2">{currentUser?.identity?.name || 'Log In'}</Text>
+      {currentUser?.identity?.avatar && (
+        <Avatar
+          sx={{ size: 60 }}
+          src={currentUser?.identity?.avatar}
+        />
+      )}
+      {!currentUser?.identity?.avatar && (
+        <IconButton
+          sx={{ size: 60 }}
         >
-          <Text pr="2">{currentUser?.identity?.name || 'Log In'}</Text>
-          {currentUser?.identity?.avatar && (
-            <Avatar
-              sx={{ size: 60 }}
-              src={currentUser?.identity?.avatar}
-            />
-          )}
-          {!currentUser?.identity?.avatar && (
-            <IconButton
-              sx={{ size: 60 }}
-            >
-              <IoIosContact size="100%" />
-            </IconButton>
-          )}
-        </Flex>
-      </Flex>
-    </Container>
+          <IoIosContact size="100%" />
+        </IconButton>
+      )}
+    </Flex>
   );
 }

@@ -56,7 +56,7 @@ export default {
   },
   layout: {
     container: {
-      p: 1,
+      px: 1,
     },
   },
   styles: {
@@ -146,6 +146,13 @@ export default {
     img: {
       maxWidth: '100%'
     }
+  },
+  links: {
+    nav: {
+      px: 2,
+      textTransform: 'uppercase',
+      letterSpacing: '0.1em',
+    },
   },
   prism: {
     '.comment,.prolog,.doctype,.cdata,.punctuation,.operator,.entity,.url': {
