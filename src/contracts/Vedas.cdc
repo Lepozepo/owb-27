@@ -1,27 +1,34 @@
-
-
 // Vedas.cdc
+// main contract
 
 pub contract Vedas {
 
     // id has to be maintained in a central location because that is the co-ordination point
     // here the minter cannot be the central point of co-ordination to assign ids because there will be multiple minters
-    pub var maxCertID: UInt64
-    pub var maxMinterID: UInt64
+    access(self)  var maxCertID: UInt64
+    access(self) var maxMinterID: UInt64
 
     init(){
         self.maxCertID = UInt64(0)
         self.maxMinterID = UInt64(0)
+        
+        // store a MinterMinter resource in account storage
+        self.account.save(<-create MinterMinter(), to: /storage/MinterMinter)
+
+        // create a private link to that , so that I can use it in txns
+        self.account.link<&Vedas.MinterMinter>(/private/MinterMinter, target: /storage/MinterMinter )
+    
+        
     }
 
     // supplying batches of 1000 to the minters.
-    pub fun getCertID(): UInt64 {
+    access(contract)  fun getCertID(): UInt64 {
         var temp = self.maxCertID
         self.maxCertID = self.maxCertID + UInt64(1)
         return temp
     }
 
-    pub fun getMinterID(): UInt64 {
+    access(contract) fun getMinterID(): UInt64 {
         var temp = self.maxMinterID
         self.maxMinterID = self.maxMinterID + UInt64(1)
         return temp
@@ -55,7 +62,7 @@ admin logs onto app ---> NFT ---> @JohnDoe
 // permission to return it back to to MIT account - explore
 
 
-// crystal box to the guy. pu the certs in there.
+// crystal box to the guy. put the certs in there.
 // if crystal breaks, cert will be sent back. Resource owning a resource.
 // admin has right to break the box.
 // user can also break the box.
@@ -127,6 +134,9 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
     }
 
+    // public function for anyone to get started with being a certificate receiver
+    // they do this by having a empty certificate vault
+    // technically anyone should be able to do this
     pub fun createEmptyCertificateVault(): @CertificateVault {
         return <- create CertificateVault()
     }
@@ -136,11 +146,12 @@ admin logs onto app ---> NFT ---> @JohnDoe
     // Also exposes only the interface functions publicly
     pub resource interface MinterReceiver{
 
-        pub fun deposit(token: @CertificateMinter)
+        pub fun deposit(certificateMinter: @CertificateMinter)
 
     }
 
     // all type declarations must be public
+    // Minter vault is the vault that holds the minter
     pub resource MinterVault: MinterReceiver {
 
         access(self) var certMinter : @CertificateMinter?
@@ -153,41 +164,40 @@ admin logs onto app ---> NFT ---> @JohnDoe
             destroy self.certMinter
         }
         
-        pub fun deposit(token: @CertificateMinter){
+        pub fun deposit(certificateMinter: @CertificateMinter){
             // need unwrap operation here
-            var oldCertMinter <- self.certMinter <- token
-            destroy oldCertMinter
+            var oldCertificateMinter <- self.certMinter <- certificateMinter
+            destroy oldCertificateMinter
         }
 
     }
 
+    // public function for anyone to get started with being a minter receiver
+    // they do this by having a empty minter vault
+    // technically anyone should be able to do this
     pub fun createEmptyMinterVault(): @MinterVault {
             return  <- create MinterVault()
     }
-
-
 
 
     // Orgs should be able to get a minter and mint certs.
     // Our company(admin account) creates  the minters to official accounts (Certificate Authorities) when they create their accounts
     pub resource CertificateMinter {
 
-        pub let minterID: UInt64
+        access(self) let minterID: UInt64
 
         init(){
             self.minterID = Vedas.getMinterID()
         }
-
        
-
-        // fun used in txns by the Certificate Authority to issueCert to user.
-        // How to make the mapping from @User to recipient Vault reference 
-        pub fun issueCert(recipient: &AnyResource{CertificateReceiver}, title: String, metadata: String, issuerID: UInt64, status: String ){
-            recipient.deposit(cert:  <-create Certificate(certID: Vedas.getCertID(), title: title, metadata: metadata, issuerID: issuerID, status: status))
-            
+      
+        // fun used in txns by the Org to issueCert to user.
+        pub fun createCertificate( title: String, metadata: String, issuerID: UInt64, status: String ): @Certificate {
+            let cert <-create Certificate(certID: Vedas.getCertID(), title: title, metadata: metadata, issuerID: issuerID, status: status)
+            return <-cert
         }
 
-        // fun used in txns by the Certificate Authority to change status to  
+        // fun used in txns by the Org to change status to inactive.
         pub fun revokeCert(recipient: &AnyResource{CertificateReceiver}, title: String, metadata: String, issuerID: UInt64, status: String ) {
 
         }
@@ -195,7 +205,21 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
     }
 
+    // type declarations must be public, so how do I make sure noone lese just creates this ?
+    // remember Resources can only be created in functions and types that are declared in the same contract in which the resource is declared.
+    pub resource MinterMinter {
+        init(){
+
+        }
+
+        pub fun createCertificateMinter(): @CertificateMinter {
+            return <- create CertificateMinter()
+        }
+
+    }
+
     
+
 
 
 }

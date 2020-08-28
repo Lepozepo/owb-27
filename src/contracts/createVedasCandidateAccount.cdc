@@ -12,7 +12,7 @@ transaction {
 
         log("Empty Certificate Vault created")
 
-        // create the public capability to provide a referance to anyone trying to send the MinterVault
+        // create the public capability to provide a referance to anyone trying to send Certificates
         account.link<&Vedas.CertificateVault>(/public/CertificateVault, target: /storage/CertificateVault)
 
         log("Capability created")

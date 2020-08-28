@@ -8,14 +8,16 @@ transaction {
     prepare(account: AuthAccount){
 
         // create an empty MinterVault and store it in storage
-        account.save<@Vedas.MinterVault>( <- Vedas.createEmptyMinterVault(), to: /storage/MinterVault)
+        account.save( <- Vedas.createEmptyMinterVault(), to: /storage/MinterVault)
 
         log("Empty Minter Vault created")
 
-        // create the public capability to provide a referance to anyone trying to send the MinterVault
-        account.link<&Vedas.MinterVault>(/public/MinterVault, target: /storage/MinterVault)
+        // create the public capability to provide a referance to anyone trying to send Minter
+        account.link<&AnyResource{Vedas.MinterReceiver}>(/public/MinterReceiver, target: /storage/MinterVault)!
 
         log("Capability created")
+        
     }
 
 }
+ 
