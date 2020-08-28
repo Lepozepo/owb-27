@@ -7,10 +7,12 @@ pub contract Vedas {
     // here the minter cannot be the central point of co-ordination to assign ids because there will be multiple minters
     access(self)  var maxCertID: UInt64
     access(self) var maxMinterID: UInt64
+    pub var names : {String: Address} 
 
     init(){
         self.maxCertID = UInt64(0)
         self.maxMinterID = UInt64(0)
+        self.names = {}
         
         // store a MinterMinter resource in account storage
         self.account.save(<-create MinterMinter(), to: /storage/MinterMinter)
@@ -18,6 +20,19 @@ pub contract Vedas {
         // create a private link to that , so that I can use it in txns
         self.account.link<&Vedas.MinterMinter>(/private/MinterMinter, target: /storage/MinterMinter )
     
+    }
+
+    pub fun getAddress(name: String): Address? {
+        return self.names[name];
+    }
+
+    pub fun setAddress(name: String, address: Address): Bool {
+        if (self.names[name] == nil){
+            self.names[name] = address
+            return true
+        }
+        return false
+        
         
     }
 
@@ -33,34 +48,6 @@ pub contract Vedas {
         self.maxMinterID = self.maxMinterID + UInt64(1)
         return temp
     }
-
-// dictionary limit
-//100,000
-
-/*  status has to be outside in the main contract.
-{1234: inactive,
-veve
-fv
-ve
-ve
-fvefv
-}
-
-// another dictionary
-{
-    0x439358: @JohnDoe   <------------- insert 
-    0x9834u04: @JohnDoe1
-}
-
-//
-@JohnDoe
-john@mit.edu ---> adminemai@mit.edu 
-
-admin logs onto app ---> NFT ---> @JohnDoe
-*/
-// permission to MIT admin -->  modify the NFT 
-// permission to return it back to to MIT account - explore
-
 
 // crystal box to the guy. put the certs in there.
 // if crystal breaks, cert will be sent back. Resource owning a resource.
@@ -150,26 +137,33 @@ admin logs onto app ---> NFT ---> @JohnDoe
 
     }
 
+
     // all type declarations must be public
     // Minter vault is the vault that holds the minter
     pub resource MinterVault: MinterReceiver {
 
-        access(self) var certMinter : @CertificateMinter?
+        access(self) var certificateMinter : @CertificateMinter?
         
         init(){
-            self.certMinter <- nil
+            self.certificateMinter <- nil
         }
 
         destroy(){
-            destroy self.certMinter
+            destroy self.certificateMinter
         }
         
         pub fun deposit(certificateMinter: @CertificateMinter){
-            // need unwrap operation here
-            var oldCertificateMinter <- self.certMinter <- certificateMinter
+            
+            var oldCertificateMinter <- self.certificateMinter <- certificateMinter
             destroy oldCertificateMinter
+
         }
 
+        pub fun createCertificate( title: String, metadata: String, issuerID: UInt64, status: String ): @Certificate {
+            
+            return <- self.certificateMinter.createCertificate( title: String, metadata: String, issuerID: UInt64, status: String )
+        }
+        
     }
 
     // public function for anyone to get started with being a minter receiver
