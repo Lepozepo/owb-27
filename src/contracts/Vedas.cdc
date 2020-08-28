@@ -7,7 +7,7 @@ pub contract Vedas {
     // here the minter cannot be the central point of co-ordination to assign ids because there will be multiple minters
     access(self)  var maxCertID: UInt64
     access(self) var maxMinterID: UInt64
-    pub var names : {String: Address} 
+    access(self)  var names : {String: Address} 
 
     init(){
         self.maxCertID = UInt64(0)
@@ -60,19 +60,19 @@ pub contract Vedas {
     pub resource Certificate {
 
         // the certificate has to have a unique id across the platform.
-        access(contract) let certID: UInt64
+        pub let certID: UInt64
 
         // certificate has title
-        access(self) let title: String
+        pub let title: String
 
         // certificate has metadata
-        access(self) var metadata: String
+        pub var metadata: String
 
         // certificate has Issuer id's account ID
-        access(self) let issuerID: UInt64
+        pub let issuerID: UInt64
 
         // certificate status
-        access(self) var status: String
+        pub var status: String
 
 
         //Initialise all fields during the creation of the resource.
@@ -93,6 +93,8 @@ pub contract Vedas {
     pub resource interface CertificateReceiver {
 
         pub fun deposit(cert: @Certificate)
+
+        pub fun borrowCert(certID: UInt64): &Certificate 
 
     }
     
@@ -117,6 +119,10 @@ pub contract Vedas {
         // need to define destroy function becasue there are nested resources.
         destroy(){
             destroy self.ownedCertificates 
+        }
+
+        pub fun borrowCert(certID: UInt64): &Certificate {
+            return &self.ownedCertificates[certID] as &Certificate
         }
 
     }
@@ -159,9 +165,11 @@ pub contract Vedas {
 
         }
 
-        pub fun createCertificate( title: String, metadata: String, issuerID: UInt64, status: String ): @Certificate {
+        
+        pub fun getCertificateMinter(  ): @CertificateMinter? {
             
-            return <- self.certificateMinter.createCertificate( title: String, metadata: String, issuerID: UInt64, status: String )
+            let temp <- self.certificateMinter <- nil
+            return <- temp
         }
         
     }
