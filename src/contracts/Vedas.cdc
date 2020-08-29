@@ -92,7 +92,7 @@ pub contract Vedas {
     // this helps create receiver links, so only intended receivers aka "subscribers" can receive the certificates sent by the minter authority
     pub resource interface CertificateReceiver {
 
-        pub fun deposit(cert: @Certificate)
+        pub fun deposit(certificate: @Certificate)
 
         pub fun borrowCert(certID: UInt64): &Certificate 
 
@@ -111,8 +111,8 @@ pub contract Vedas {
             self.ownedCertificates <- {}
         }
 
-        pub fun deposit(cert: @Certificate) {
-            let oldCert <- self.ownedCertificates[cert.certID] <- cert
+        pub fun deposit(certificate: @Certificate) {
+            let oldCert <- self.ownedCertificates[certificate.certID] <- certificate
             destroy oldCert
         }
 
@@ -186,7 +186,7 @@ pub contract Vedas {
     // Our company(admin account) creates  the minters to official accounts (Certificate Authorities) when they create their accounts
     pub resource CertificateMinter {
 
-        access(self) let minterID: UInt64
+        pub let minterID: UInt64
 
         init(){
             self.minterID = Vedas.getMinterID()
