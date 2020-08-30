@@ -1467,6 +1467,11 @@
   resolved "https://registry.yarnpkg.com/@onflow/decode/-/decode-0.0.6.tgz#0a06b5d41ed736d8818d8cf6d955531f7c294349"
   integrity sha512-xQypEDR53Qn4NDWN1cX1fZ5bfQAR37QEc9Mo4xqzL3M13/Py/C3V/E+d77rw1K+ZW/lFYKyffXJKWAGq2qDxWw==
 
+"@onflow/decode@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@onflow/decode/-/decode-0.0.7.tgz#183860b53062a6a8bb9f826e98c560f240aec4a7"
+  integrity sha512-PozbEP309uyRx9EP81ovU0GKoHSJu6gN84zb8+/7zelKvIp+XJPpx+SzJFy8f9dzvmNzZy7FActZYx+rm5tqfA==
+
 "@onflow/dev-wallet@^0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@onflow/dev-wallet/-/dev-wallet-0.0.8.tgz#172318573bb2af2422a311f0d451fceaaa569f12"
@@ -1515,16 +1520,21 @@
     "@onflow/util-actor" "0.0.1"
     queue-microtask "1.1.2"
 
-"@onflow/fcl@^0.0.51":
-  version "0.0.51"
-  resolved "https://registry.yarnpkg.com/@onflow/fcl/-/fcl-0.0.51.tgz#64e3c748fe519679ae7664aa20ed314fdf4d03b1"
-  integrity sha512-dDpB8JCuPy2oo2bbkLLXz8n3UlaOnvddpE96WpitvLX90QP6zwiuTDFD0C9hWLFi7V/jqSiLlJWm6LWH9VThqw==
+"@onflow/fcl@^0.0.53":
+  version "0.0.53"
+  resolved "https://registry.yarnpkg.com/@onflow/fcl/-/fcl-0.0.53.tgz#972241739be5ae88c6d38dd04f190c2508abdf20"
+  integrity sha512-r0yqYxZNNs6i1EE2qBw9RNkL7TE2z3P/HyUmgi261VaZ80Pk2Xqy3j4RVSTObm3LNkBGmznXbHtD61a/4WMv0Q==
   dependencies:
     "@onflow/config" "0.0.2"
-    "@onflow/sdk" "0.0.30"
+    "@onflow/sdk" "0.0.31"
     "@onflow/types" "0.0.2"
     "@onflow/util-actor" "0.0.2"
     queue-microtask "1.1.2"
+
+"@onflow/interaction@0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@onflow/interaction/-/interaction-0.0.10.tgz#0809aba2ac3a4b1a7c97de4089e38bbf8d5794b8"
+  integrity sha512-3+Nhjn8zZjAXpxH+MuHpl4ZR0s9eQl4aZqmjat2sekDTNNl1dYhaWs+RT5CSxzehGzJ2W+aL7JxFn6exFoA0zA==
 
 "@onflow/interaction@0.0.7":
   version "0.0.7"
@@ -1568,15 +1578,15 @@
     "@onflow/send" "0.0.15"
     "@qvvg/templar" "0.0.1"
 
-"@onflow/sdk@0.0.30":
-  version "0.0.30"
-  resolved "https://registry.yarnpkg.com/@onflow/sdk/-/sdk-0.0.30.tgz#ff92e7835b62107a6abd031ed4de1ae1d38a6145"
-  integrity sha512-FFp3E8H6JiUJXnDLuC5Y2tNlgsv2VNpj7JQPSKfqjC1Xul/GMMr13DDo0wmrkd1t/0WtKGGaMnCmIYUTJVpSMQ==
+"@onflow/sdk@0.0.31", "@onflow/sdk@^0.0.31":
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/@onflow/sdk/-/sdk-0.0.31.tgz#9e92c2b112a39337064281814a532ea6715a7123"
+  integrity sha512-fVjYMquW/DVdjXtSdAOKBXTGOTEcT0/pEMVDZ9Pp9j7afasd/EVuFk6fLSx/4OEjwmj2nYQsmbdC9hgOduo2Tg==
   dependencies:
-    "@onflow/decode" "0.0.6"
+    "@onflow/decode" "0.0.7"
     "@onflow/encode" "0.0.4"
-    "@onflow/interaction" "0.0.8"
-    "@onflow/send" "0.0.17"
+    "@onflow/interaction" "0.0.10"
+    "@onflow/send" "0.0.20"
     "@qvvg/templar" "0.0.1"
 
 "@onflow/send@0.0.15":
@@ -1590,14 +1600,14 @@
     "@onflow/protobuf" "0.1.5"
     "@onflow/response" "0.0.2"
 
-"@onflow/send@0.0.17":
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/@onflow/send/-/send-0.0.17.tgz#b1a35928dbcd39a82695b00bbdd4e1bb4aeb79ea"
-  integrity sha512-Q9MuiR5UdZp5PeKp4AcLRi6VJD/yY5L4BvJhRMYy/EtuxglrK68M3wsH7YHiWdYZO5Yz9qRISuh78Xa8ClS9xA==
+"@onflow/send@0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@onflow/send/-/send-0.0.20.tgz#d1d8382892994952672a46cc00e6aab68567aa9b"
+  integrity sha512-vRt4MkgjfmvnsC9YmXxU8OC8Tk4e0oafQk/szgyIpCCa9S//LoNMlUiLVKCVAwfOHUfUjau6zNOsT61Zfaz96w==
   dependencies:
     "@improbable-eng/grpc-web" "0.12.0"
     "@improbable-eng/grpc-web-node-http-transport" "0.12.0"
-    "@onflow/interaction" "0.0.7"
+    "@onflow/interaction" "0.0.10"
     "@onflow/protobuf" "0.1.6"
     "@onflow/response" "0.0.2"
 
@@ -1610,6 +1620,11 @@
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.2.tgz#ed2bb8c34d2608d3503defcb19c4c1f5b25f5d96"
   integrity sha512-pGBuq7/slH2Xq5drKxFjbppeq0Kq6WLuyOV8lMYb57DPZSfbKnEOBubuq3y1N4kTpqHr+6g/VMqg3O/T20QZxg==
+
+"@onflow/types@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.4.tgz#d4a9c3e301d23182dd256b73d3679c952fe653f0"
+  integrity sha512-47r0qTM45mR7FSvyEE0njGljkpgy3MCf/2W82pfZ/PTFGWr1nsGV/4j2bUfK9Sry4Ymz2W20iRZVP3xpqOhqGw==
 
 "@onflow/util-actor@0.0.1":
   version "0.0.1"
@@ -4554,7 +4569,7 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-elliptic@^6.5.2:
+elliptic@^6.5.2, elliptic@^6.5.3:
   version "6.5.3"
   resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.3.tgz#cb59eb2efdaf73a0bd78ccd7015a62ad6e0f93d6"
   integrity sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==
@@ -10148,7 +10163,7 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
-rlp@^2.2.4:
+rlp@^2.2.4, rlp@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/rlp/-/rlp-2.2.6.tgz#c80ba6266ac7a483ef1e69e8e2f056656de2fb2c"
   integrity sha512-HAfAmL6SDYNWPUOJNrM500x4Thn4PZsEy5pijPh40U9WfNk0z15hUYzO9xVIMAdIHdFtD8CBDHd75Td1g36Mjg==
@@ -10404,7 +10419,7 @@ sha.js@^2.4.0, sha.js@^2.4.8:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-sha3@^2.1.2:
+sha3@^2.1.2, sha3@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/sha3/-/sha3-2.1.3.tgz#ab05b841b2bce347765db31f57fe2a3134b9fb48"
   integrity sha512-Io53D4o9qOmf3Ow9p/DoGLQiQHhtuR0ulbyambvRSG+OX5yXExk2yYfvjHtb7AtOyk6K6+sPeK/qaowWc/E/GA==

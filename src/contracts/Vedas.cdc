@@ -219,16 +219,4 @@ pub contract Vedas {
         }
 
     }
-
-    
-
-
-
 }
-
-
-
-
-
-
- 
