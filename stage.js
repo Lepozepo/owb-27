@@ -54,7 +54,6 @@ async function stage() {
     contractAddr,
     account.keys[0],
     `pub contract NonFungibleToken {
-
       // Declare the NFT resource type
       pub resource NFT {
         // The unique ID that differentiates each NFT

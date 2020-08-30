@@ -34,11 +34,11 @@ export default function CreateCertificate() {
               img: img.current.value,
               recipient: recipient.current.value,
             }),
-            fcl.proposer(currentUser.authorization),
-            fcl.payer(currentUser.authorization),
+            fcl.proposer(fcl.currentUser().authorization),
+            fcl.payer(fcl.currentUser().authorization),
           ]).then(fcl.decode);
           console.log(certificate);
-          history.push(`/certificates/${certificate.id}`);
+          // history.push(`/certificates/${certificate.id}`);
         }}
       >
         <Label htmlFor='title'>Title</Label>
