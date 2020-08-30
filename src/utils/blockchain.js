@@ -74,10 +74,9 @@ module.exports = class Blockchain {
     return await flow.createAccount(keyInfo);
   }
 
-  static async deployContract(env, address, contract) {
-
+  static async deployContract(env, address, key, contract) {
     let flow = new Flow(env);
-    return await flow.deployContract(address, contract);
+    return await flow.deployContract(address, key, contract);
   }
 
   static async getAccount(env, address) {

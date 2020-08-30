@@ -98,11 +98,11 @@ class Flow {
     publicKeys.map((k) => {
       let key = account.keys.find(d => d.publicKey === k.publicKey);
       newAccount.keys.push({
-              publicKey: k.publicKey,
-              privateKey: k.privateKey,
-              keyId: key.index,
-              weight: k.weight    
-            });
+        publicKey: k.publicKey,
+        privateKey: k.privateKey,
+        keyId: key.index,
+        weight: k.weight    
+      });
     });
 
     return newAccount;
@@ -110,8 +110,7 @@ class Flow {
 
 
 
-  async deployContract(address, contract) {
-
+  async deployContract(address, key, contract) {
     // Transaction code
     let tx = fcl.transaction`
       transaction {
@@ -122,10 +121,11 @@ class Flow {
 
     // Transaction options
     let options = {
-       roleInfo: { [Flow.Roles.ALL]: address },
-       //roleInfo: { [Flow.Roles.ALL]: address},
-       params: [{ name: 'code', type: t.Identity, value: Buffer.from(contract, "utf8").toString("hex") }],
-      gasLimit: 50
+      roleInfo: { [Flow.Roles.ALL]: address },
+      //roleInfo: { [Flow.Roles.ALL]: address},
+      params: [{ name: 'code', type: t.Identity, value: Buffer.from(contract, "utf8").toString("hex") }],
+      gasLimit: 50,
+      key,
     }
 
     let response = await this.executeTransaction(tx, options);
@@ -204,7 +204,6 @@ class Flow {
     }
   */
   async _processTransaction(tx, options) {
-
     options = options || {};
 
     let builders = [];
@@ -238,11 +237,11 @@ class Flow {
       if (roles[Flow.Roles.PROPOSER] || roles[Flow.Roles.ALL]) {
         let address = roles[Flow.Roles.PROPOSER] || roles[Flow.Roles.ALL];
         let account = await this.getAccount(address);
-        builders.push(fcl.proposer(await signer.authorize(account)));
+        builders.push(fcl.proposer(await signer.authorize(account, options.key)));
 
         if (roles[Flow.Roles.ALL]) {
-          builders.push(fcl.authorizations([await signer.authorize(account)]));
-          builders.push(fcl.payer(await signer.authorize(account)));
+          builders.push(fcl.authorizations([await signer.authorize(account, options.key)]));
+          builders.push(fcl.payer(await signer.authorize(account, options.key)));
         }
       }
       // A transaction can have multiple Authorizers. 
@@ -252,7 +251,7 @@ class Flow {
         for(let a=0; a<roles[Flow.Roles.AUTHORIZERS].length; a++) {
           let address = roles[Flow.Roles.AUTHORIZERS][a];
           let account = await this.getAccount(address);
-          let authorization = await signer.authorize(account);
+          let authorization = await signer.authorize(account, options.key);
           authorizations.push(authorization);                    
         }
          if (authorizations.length > 0) {
@@ -264,7 +263,7 @@ class Flow {
       if (roles[Flow.Roles.PAYER]) {
         let address = roles[Flow.Roles.PAYER];
         let account = await this.getAccount(address);
-        builders.push(fcl.payer(await signer.authorize(account)));
+        builders.push(fcl.payer(await signer.authorize(account, options.key)));
         
       }
     }
@@ -304,8 +303,8 @@ class Signer {
     }
   }
 
-  async authorize(accountInfo) {
-    let {privateKey, keyId} = await this._getAuthorizingKey(accountInfo.address);
+  async authorize(accountInfo, key) {
+    const { privateKey, keyId } = key || this.serviceWallet.keys[0];
 
     return (account = {}) => {
 
@@ -324,7 +323,7 @@ class Signer {
       let retVal = {
         ...account,
         addr: accountInfo.address,
-        keyId: keyId,
+        keyId,
         sequenceNum: accountInfo.keys[keyId].sequenceNumber,
         signature: account.signature || null,
         signingFunction: __signingFunction

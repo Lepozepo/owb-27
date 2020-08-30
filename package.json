@@ -26,7 +26,7 @@
     "build": "craco build",
     "test": "CI=true craco test --passWithNoTests",
     "flow:wallet": "PK=398ffa83e34ac67bf61fa8ab907eb05393f49404de953a20da525db1aa355c6f fcl-wallet",
-    "flow:start": "flow emulator start --init --service-priv-key 398ffa83e34ac67bf61fa8ab907eb05393f49404de953a20da525db1aa355c6f --service-pub-key 80478d6c870c52f33a41d047864bf2d582d77849ca95f7cdf3fa14e3517a21193f73e6c9a004aea72c444cf4fd049a71a0bf67cc3e1170368434383c98b1ea48 --persist",
+    "flow:start": "flow emulator start --init -v --service-priv-key 398ffa83e34ac67bf61fa8ab907eb05393f49404de953a20da525db1aa355c6f --service-pub-key 80478d6c870c52f33a41d047864bf2d582d77849ca95f7cdf3fa14e3517a21193f73e6c9a004aea72c444cf4fd049a71a0bf67cc3e1170368434383c98b1ea48",
     "flow:stage": "node ./stage.js"
   },
   "eslintConfig": {
