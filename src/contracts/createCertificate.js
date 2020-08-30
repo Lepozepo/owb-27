@@ -10,7 +10,7 @@ export default function createCertificate(props = {}) {
 
   // TODO: Check if creator has vault, if not create then create it
   // If a recipient exists, transfer to recipient
-  return fcl.script(`
+  return fcl.transaction(`
     transaction {
       prepare(account: AuthAccount){
         account.save<@Vedas.CertificateVault>(<- Vedas.createEmptyCertificateVault(), to: /storage/CertificateVault)

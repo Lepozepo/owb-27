@@ -34,6 +34,8 @@ export default function CreateCertificate() {
               img: img.current.value,
               recipient: recipient.current.value,
             }),
+            fcl.proposer(currentUser.authorization),
+            fcl.payer(currentUser.authorization),
           ]).then(fcl.decode);
           console.log(certificate);
           history.push(`/certificates/${certificate.id}`);
