@@ -4,11 +4,9 @@ import CertificateLI from '~/components/CertificateLI';
 import certificates from '~/config/tmpCerts';
 
 export default function UserCertifications({ addr } = {}) {
-  console.log(addr);
-
   return (
     <Container>
-      {certificates.map((certificate) => (
+      {certificates.slice(0, 1).map((certificate) => (
         <CertificateLI key={certificate.id} certificate={certificate} />
       ))}
     </Container>

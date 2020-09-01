@@ -8,7 +8,7 @@ export default [
     img: 'https://images-na.ssl-images-amazon.com/images/I/81W5nfYYxoL._AC_SY355_.jpg',
     grantedAt: format(new Date(2014, 1, 11), 'MM/dd/yyyy'),
     grantedBy: ['walletId2', 'walletId3'],
-    ownedBy: [{ id: 'walletId1', avatar: 'https://avatars.onflow.org/avatar/6173a5ff-effa-7141-820f-e16693eb878b.svg' }],
+    ownedBy: [{ id: 'walletId1', avatar: 'https://avatars.onflow.org/avatar/179b6b1cb6755e31.svg' }],
     events: [
       {
         id: '1',

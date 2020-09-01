@@ -7,7 +7,7 @@ import HeroText from '~/components/HeroText';
 export default function Landing() {
   return (
     <Layout>
-      <HeroText>Certified</HeroText>
+      <HeroText>CertaFox</HeroText>
       <RecentCertifications />
     </Layout>
   );
