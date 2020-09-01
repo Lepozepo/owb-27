@@ -36,7 +36,7 @@ export default [
     img: 'https://images-na.ssl-images-amazon.com/images/I/81W5nfYYxoL._AC_SY355_.jpg',
     grantedAt: format(new Date(2014, 2, 11), 'MM/dd/yyyy'),
     grantedBy: walletId2,
-    ownedBy: [{ id: walletId1, avatar: 'https://avatars.onflow.org/avatar/afe737d9-4c07-fd89-24a9-3f26bf30c530.svg' }],
+    ownedBy: [{ id: walletId1, avatar: 'https://avatars.onflow.org/avatar/179b6b1cb6755e31.svg' }],
     events: [
       {
         id: uuid(),
@@ -58,7 +58,7 @@ export default [
     img: 'https://images-na.ssl-images-amazon.com/images/I/81W5nfYYxoL._AC_SY355_.jpg',
     grantedAt: format(new Date(2014, 2, 11), 'MM/dd/yyyy'),
     grantedBy: walletId2,
-    ownedBy: [{ id: walletId1, avatar: 'https://avatars.onflow.org/avatar/afe737d9-4c07-fd89-24a9-3f26bf30c530.svg' }],
+    ownedBy: [{ id: walletId1, avatar: 'https://avatars.onflow.org/avatar/179b6b1cb6755e31.svg' }],
     events: [
       {
         id: uuid(),
@@ -80,7 +80,7 @@ export default [
     img: 'https://images-na.ssl-images-amazon.com/images/I/81W5nfYYxoL._AC_SY355_.jpg',
     grantedAt: format(new Date(2014, 2, 11), 'MM/dd/yyyy'),
     grantedBy: walletId2,
-    ownedBy: [{ id: walletId1, avatar: 'https://avatars.onflow.org/avatar/afe737d9-4c07-fd89-24a9-3f26bf30c530.svg' }],
+    ownedBy: [{ id: walletId1, avatar: 'https://avatars.onflow.org/avatar/179b6b1cb6755e31.svg' }],
     events: [
       {
         id: uuid(),
@@ -102,7 +102,7 @@ export default [
     img: 'https://images-na.ssl-images-amazon.com/images/I/81W5nfYYxoL._AC_SY355_.jpg',
     grantedAt: format(new Date(2014, 2, 11), 'MM/dd/yyyy'),
     grantedBy: walletId2,
-    ownedBy: [{ id: walletId1, avatar: 'https://avatars.onflow.org/avatar/afe737d9-4c07-fd89-24a9-3f26bf30c530.svg' }],
+    ownedBy: [{ id: walletId1, avatar: 'https://avatars.onflow.org/avatar/179b6b1cb6755e31.svg' }],
     events: [
       {
         id: uuid(),
@@ -124,7 +124,7 @@ export default [
     img: 'https://images-na.ssl-images-amazon.com/images/I/81W5nfYYxoL._AC_SY355_.jpg',
     grantedAt: format(new Date(2014, 2, 11), 'MM/dd/yyyy'),
     grantedBy: walletId1,
-    ownedBy: [{ id: walletId2, avatar: 'https://avatars.onflow.org/avatar/afe737d9-4c07-fd89-24a9-3f26bf30c530.svg' }],
+    ownedBy: [{ id: walletId1, avatar: 'https://avatars.onflow.org/avatar/179b6b1cb6755e31.svg' }],
     events: [
       {
         id: uuid(),
